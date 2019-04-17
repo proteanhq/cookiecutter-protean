@@ -1,0 +1,10 @@
+graft src
+graft tests
+
+include .bumpversion.cfg
+include .coveragerc
+include .cookiecutterrc
+
+include README.rst
+
+global-exclude *.py[cod] __pycache__ *.so *.dylib

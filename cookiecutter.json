@@ -1,0 +1,19 @@
+{
+  "full_name": "Subhash Bhushan C",
+  "email": "subhash.bhushan@gmail.com",
+  "website": "https://proteanhq.com",
+  "github_username": "subhashb",
+  "project_name": "Domain",
+  "repo_name": "python-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
+  "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
+  "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
+  "project_short_description": "An example package. Generated with cookiecutter-protean.",
+  "version": "0.0.0",
+  "command_line_interface": [
+  "plain",
+  "argparse",
+  "click",
+  "no"
+  ],
+  "command_line_interface_bin_name": "{{ cookiecutter.distribution_name }}"
+  }
