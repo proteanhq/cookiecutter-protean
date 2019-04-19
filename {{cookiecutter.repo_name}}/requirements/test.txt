@@ -1,4 +1,6 @@
 -r dev.txt
 
 mock==2.0.0
-pytest==3.6.3
+pluggy==0.9.0
+pytest==4.4.1
+pytest-flake8==1.0.4
