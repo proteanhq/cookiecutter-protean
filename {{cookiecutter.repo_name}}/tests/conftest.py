@@ -1,38 +1,51 @@
-"""Module to setup Test Suite and register artifacts for tests"""
-
+import logging.config
+import os
 import pytest
 
-
-def pytest_addoption(parser):
-    """Additional options for running tests with pytest"""
-    parser.addoption(
-        "--slow", action="store_true", default=False, help="run slow tests"
-    )
+from protean.globals import current_domain
 
 
-def pytest_collection_modifyitems(config, items):
-    """Configure special markers on tests, so as to control execution"""
-    if config.getoption("--slow"):
-        # --slow given in cli: do not skip slow tests
-        return
-    skip_slow = pytest.mark.skip(reason="need --slow option to run")
-    for item in items:
-        if "slow" in item.keywords:
-            item.add_marker(skip_slow)
+def fetch_{{ cookiecutter.package_name }}_domain():
+    """Fetch the core domain for running tests
+    This is typically the domain to which all domain elements are registered
+    """
+    from {{ cookiecutter.package_name }}.domain import domain
+    return domain
 
 
-@pytest.fixture(scope="session", autouse=True)
-def run_once_on_init():
-    """Things to run once for the entire test suite"""
-    pass
+def configured_domain_for_session(session):
+    domain = fetch_{{ cookiecutter.package_name }}_domain()
+
+    # Construct relative path to config file
+    current_path = os.path.abspath(os.path.dirname(__file__))
+    config_path = os.path.join(current_path, "./config.py")
+
+    if os.path.exists(config_path):
+        domain.config.from_pyfile(config_path)
+
+    if 'LOGGING_CONFIG' in domain.config:
+        logging.config.dictConfig(domain.config['LOGGING_CONFIG'])
+
+    return domain
+
+
+def pytest_sessionstart(session):
+    """Pytest hook to run before collecting tests.
+
+    In this method, we fetch the domain and activate it,
+    by pushing the domain_context associated with the domain.
+    We can then refer to the domain everywhere else in pytest with `current_domain`
+    """
+    domain = configured_domain_for_session(session)
+    domain.domain_context().push()
 
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
-    """Stuff to run around every test case, like Connection initialization and Data Cleanup"""
-
-    # Do something before running each test case
 
     yield
 
-    # Do something after running each test case
+    from protean.globals import current_domain
+
+    for provider in current_domain.providers_list():
+        provider._data_reset()

@@ -1,19 +1,12 @@
 {
-  "full_name": "Subhash Bhushan C",
-  "email": "subhash.bhushan@gmail.com",
-  "website": "https://proteanhq.com",
-  "github_username": "subhashb",
-  "project_name": "Domain",
-  "repo_name": "protean-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
+  "full_name": "John Doe",
+  "email": "john.doe.12345@gmail.com",
+  "website": "https://johndoe12345.com",
+  "github_username": "johndoe",
+  "project_name": "New Project",
+  "repo_name": "{{ cookiecutter.project_name|lower|replace(' ','-') }}",
   "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
   "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
-  "project_short_description": "A basic Protean Application package. Generated with cookiecutter-protean.",
-  "version": "0.0.1",
-  "command_line_interface": [
-  "plain",
-  "argparse",
-  "click",
-  "no"
-  ],
-  "command_line_interface_bin_name": "{{ cookiecutter.distribution_name }}"
-  }
+  "project_short_description": "{{ cookiecutter.project_name }} - A basic Protean Application, generated with cookiecutter-protean.",
+  "version": "0.0.1"
+}
