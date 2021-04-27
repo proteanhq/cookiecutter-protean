@@ -21,18 +21,15 @@ def read(*names, **kwargs):
 testing_requires = [
     "flake8-commas==2.0.0",
     "future==0.18.2",
-    "mock==4.0.2",
-    "pytest-bdd==3.2.1",
-    "pytest-cov==2.8.1",
-    "pytest-flake8==1.0.4",
-    "pytest-flask==0.15.1",
-    "pytest-freezegun==0.4.1",
-    "pytest-mock==2.0.0",
-    "pytest==5.2.1",
+    "mock==4.0.3",
+    "pytest-bdd==4.0.2",
+    "pytest-cov==2.11.1",
+    "pytest-mock==3.6.0",
+    "pytest==6.2.3",
 ]
 
 dev_requires = testing_requires + [
-    "bump2version==1.0.0",
+    "bump2version==1.0.1",
 ]
 
 setup(
@@ -65,7 +62,7 @@ setup(
     ],
     python_requires=">=3.7",
     install_requires=[
-        "protean==0.5.0",
+        "protean==0.5.8",
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
     ],
     extras_require={
